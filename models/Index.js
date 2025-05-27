@@ -1,15 +1,15 @@
-const sequelize = require("../config/database");
+import sequelize from "../config/database.js";
 
-const Utilizador = require("./Utilizador");
-const OrcamentoMensal = require("./OrcamentoMensal");
-const Categoria = require("./Categoria");
-const TransacaoFinanceira = require("./TransacaoFinanceira");
-const Auditoria = require("./Auditoria");
+import Utilizador from "./Utilizador.js";
+import Orcamento from "./Orcamento.js";
+import Categoria from "./Categoria.js";
+import TransacaoFinanceira from "./TransaccaoFinanceira.js";
+import Auditoria from "./Auditoria.js";
 
 // Associações
 
-Utilizador.hasMany(OrcamentoMensal, { foreignKey: "idUtilizador" });
-OrcamentoMensal.belongsTo(Utilizador, { foreignKey: "idUtilizador" });
+Utilizador.hasMany(Orcamento, { foreignKey: "idUtilizador" });
+Orcamento.belongsTo(Utilizador, { foreignKey: "idUtilizador" });
 
 Utilizador.hasMany(TransacaoFinanceira, { foreignKey: "idUtilizador" });
 TransacaoFinanceira.belongsTo(Utilizador, { foreignKey: "idUtilizador" });
@@ -17,17 +17,17 @@ TransacaoFinanceira.belongsTo(Utilizador, { foreignKey: "idUtilizador" });
 Categoria.hasMany(TransacaoFinanceira, { foreignKey: "idCategoria" });
 TransacaoFinanceira.belongsTo(Categoria, { foreignKey: "idCategoria" });
 
-OrcamentoMensal.hasMany(TransacaoFinanceira, { foreignKey: "idOrcamento" });
-TransacaoFinanceira.belongsTo(OrcamentoMensal, { foreignKey: "idOrcamento" });
+Orcamento.hasMany(TransacaoFinanceira, { foreignKey: "idOrcamento" });
+TransacaoFinanceira.belongsTo(Orcamento, { foreignKey: "idOrcamento" });
 
 Utilizador.hasMany(Auditoria, { foreignKey: "idUtilizador" });
 Auditoria.belongsTo(Utilizador, { foreignKey: "idUtilizador" });
 
-// Exportar tudo
-module.exports = {
+// Exportar usando ES Modules
+export {
   sequelize,
   Utilizador,
-  OrcamentoMensal,
+  Orcamento,
   Categoria,
   TransacaoFinanceira,
   Auditoria,

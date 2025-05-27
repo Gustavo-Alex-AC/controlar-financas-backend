@@ -1,4 +1,4 @@
-const { Orcamento } = require("../models/Orcamento");
+import { Orcamento } from "../models/index.js";
 
 const OrcamentoController = {
   async create(req, res) {
@@ -55,4 +55,4 @@ const OrcamentoController = {
   },
 };
 
-module.exports = OrcamentoController;
+export default OrcamentoController;

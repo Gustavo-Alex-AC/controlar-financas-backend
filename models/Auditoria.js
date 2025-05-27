@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
+import { DataTypes } from "sequelize";
+import sequelize from "../config/sequelize.js";
 
 const Auditoria = sequelize.define("Auditoria", {
   idAuditoria: {
@@ -14,4 +14,4 @@ const Auditoria = sequelize.define("Auditoria", {
   },
 });
 
-module.exports = Auditoria;
+export default Auditoria;

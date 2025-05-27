@@ -1,5 +1,5 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../config/database");
+import { DataTypes } from "sequelize";
+import sequelize from "../config/sequelize.js";
 
 const Orcamento = sequelize.define("Orcamento", {
   idOrcamento: {
@@ -12,4 +12,4 @@ const Orcamento = sequelize.define("Orcamento", {
   valorLimite: DataTypes.DECIMAL(10, 2),
 });
 
-module.exports = Orcamento;
+export default Orcamento;

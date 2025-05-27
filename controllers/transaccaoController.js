@@ -1,9 +1,9 @@
-const { Transacao } = require("../models/TransaccaoFinanceira");
+import { TransacaoFinanceira } from "../models/index.js";
 
 const TransacaoController = {
   async create(req, res) {
     try {
-      const nova = await Transacao.create(req.body);
+      const nova = await TransacaoFinanceira.create(req.body);
       res.status(201).json(nova);
     } catch (err) {
       res.status(500).json({ erro: "Erro ao criar transação" });
@@ -12,7 +12,7 @@ const TransacaoController = {
 
   async findAll(req, res) {
     try {
-      const lista = await Transacao.findAll();
+      const lista = await TransacaoFinanceira.findAll();
       res.json(lista);
     } catch (err) {
       res.status(500).json({ erro: "Erro ao listar transações" });
@@ -21,7 +21,7 @@ const TransacaoController = {
 
   async findById(req, res) {
     try {
-      const item = await Transacao.findByPk(req.params.id);
+      const item = await TransacaoFinanceira.findByPk(req.params.id);
       if (!item)
         return res.status(404).json({ erro: "Transação não encontrada" });
       res.json(item);
@@ -32,7 +32,7 @@ const TransacaoController = {
 
   async update(req, res) {
     try {
-      const item = await Transacao.findByPk(req.params.id);
+      const item = await TransacaoFinanceira.findByPk(req.params.id);
       if (!item)
         return res.status(404).json({ erro: "Transação não encontrada" });
       await item.update(req.body);
@@ -44,7 +44,7 @@ const TransacaoController = {
 
   async delete(req, res) {
     try {
-      const item = await Transacao.findByPk(req.params.id);
+      const item = await TransacaoFinanceira.findByPk(req.params.id);
       if (!item)
         return res.status(404).json({ erro: "Transação não encontrada" });
       await item.destroy();
@@ -55,4 +55,4 @@ const TransacaoController = {
   },
 };
 
-module.exports = TransacaoController;
+export default TransacaoController;

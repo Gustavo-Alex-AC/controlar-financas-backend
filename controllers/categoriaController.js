@@ -1,4 +1,4 @@
-const { Categoria } = require("../models/Index");
+import { Categoria } from "../models/index.js";
 
 const CategoriaController = {
   async create(req, res) {
@@ -22,7 +22,8 @@ const CategoriaController = {
   async findById(req, res) {
     try {
       const item = await Categoria.findByPk(req.params.id);
-      if (!item) return res.status(404).json({ erro: "Categoria não encontrada" });
+      if (!item)
+        return res.status(404).json({ erro: "Categoria não encontrada" });
       res.json(item);
     } catch (err) {
       res.status(500).json({ erro: "Erro ao buscar categoria" });
@@ -32,7 +33,8 @@ const CategoriaController = {
   async update(req, res) {
     try {
       const item = await Categoria.findByPk(req.params.id);
-      if (!item) return res.status(404).json({ erro: "Categoria não encontrada" });
+      if (!item)
+        return res.status(404).json({ erro: "Categoria não encontrada" });
       await item.update(req.body);
       res.json(item);
     } catch (err) {
@@ -43,13 +45,14 @@ const CategoriaController = {
   async delete(req, res) {
     try {
       const item = await Categoria.findByPk(req.params.id);
-      if (!item) return res.status(404).json({ erro: "Categoria não encontrada" });
+      if (!item)
+        return res.status(404).json({ erro: "Categoria não encontrada" });
       await item.destroy();
       res.json({ mensagem: "Categoria excluída com sucesso" });
     } catch (err) {
       res.status(500).json({ erro: "Erro ao excluir categoria" });
     }
-  }
+  },
 };
 
-module.exports = CategoriaController;
+export default CategoriaController;
