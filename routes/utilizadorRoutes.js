@@ -1,12 +1,17 @@
 import express from "express";
 import UserController from "../controllers/utilizadorController.js";
+import autenticarToken from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/", UserController.create);
-router.get("/", UserController.findAll);
-router.get("/:id", UserController.findById);
-router.put("/:id", UserController.update);
-router.delete("/:id", UserController.delete);
+// Public routes
+router.post("/signup", UserController.create); // Sign up
+router.post("/login", UserController.login); // Login
+
+// Protected routes
+router.get("/", autenticarToken, UserController.findAll);
+router.get("/:id", autenticarToken, UserController.findById);
+router.put("/:id", autenticarToken, UserController.update);
+router.delete("/:id", autenticarToken, UserController.delete);
 
 export default router;

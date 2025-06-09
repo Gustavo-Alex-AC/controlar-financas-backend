@@ -1,12 +1,72 @@
 import { Utilizador } from "../models/index.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const UtilizadorController = {
+  // ✅ Register User
   async create(req, res) {
     try {
-      const novo = await Utilizador.create(req.body);
+      const { nome, email, senha } = req.body;
+
+      const senhaHash = await bcrypt.hash(senha, 10);
+      //const novo = await Utilizador.create({ ...resto, senha: senhaHash });
+
+      const novo = await Utilizador.create({
+        nomeUtilizador: nome,
+        emailUtilizador: email,
+        senhaUtilizador: senhaHash,
+      });
+
       res.status(201).json(novo);
     } catch (err) {
+      console.error("Erro ao criar utilizador:", err); // <-- veja no terminal
       res.status(500).json({ erro: "Erro ao criar utilizador" });
+    }
+  },
+
+  // ✅ Login User
+  async login(req, res) {
+    const { email, senha } = req.body;
+
+    try {
+      const utilizador = await Utilizador.findOne({
+        where: { emailUtilizador: email },
+      });
+
+      if (!utilizador) {
+        return res.status(401).json({ message: "Email ou senha inválido" });
+      }
+
+      const senhaCorreta = await bcrypt.compare(
+        senha,
+        utilizador.senhaUtilizador
+      );
+
+      if (!senhaCorreta) {
+        return res.status(401).json({ message: "Email ou senha inválido" });
+      }
+
+      const token = jwt.sign(
+        {
+          id: utilizador.idUtilizador,
+          email: utilizador.emailUtilizador,
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: "1d" }
+      );
+
+      res.json({
+        message: "Login bem-sucedido",
+        token,
+        user: {
+          id: utilizador.idUtilizador,
+          nome: utilizador.nomeUtilizador,
+          email: utilizador.emailUtilizador,
+        },
+      });
+    } catch (err) {
+      console.error("Erro no login:", err);
+      res.status(500).json({ erro: "Erro ao fazer login" });
     }
   },
 

@@ -1,56 +1,27 @@
 import { Auditoria } from "../models/index.js";
 
 const AuditoriaController = {
-  async create(req, res) {
-    try {
-      const novo = await Auditoria.create(req.body);
-      res.status(201).json(novo);
-    } catch (err) {
-      res.status(500).json({ erro: "Erro ao criar auditoria" });
-    }
-  },
+  // async findAll(req, res) {
+  //   const auditorias = await Auditoria.findAll({
+  //     where: { userId: req.user.id },
+  //   });
+  //   res.json(auditorias);
+  // },
 
   async findAll(req, res) {
     try {
-      const lista = await Auditoria.findAll();
-      res.json(lista);
-    } catch (err) {
-      res.status(500).json({ erro: "Erro ao listar auditorias" });
-    }
-  },
+      if (!req.user) {
+        return res.status(401).json({ message: "Usuário não autenticado" });
+      }
 
-  async findById(req, res) {
-    try {
-      const item = await Auditoria.findByPk(req.params.id);
-      if (!item)
-        return res.status(404).json({ erro: "Auditoria não encontrada" });
-      res.json(item);
-    } catch (err) {
-      res.status(500).json({ erro: "Erro ao buscar auditoria" });
-    }
-  },
+      const userId = req.user.id;
+      const auditorias = await Auditoria.findAll({
+        where: { idUtilizador: userId },
+      });
 
-  async update(req, res) {
-    try {
-      const item = await Auditoria.findByPk(req.params.id);
-      if (!item)
-        return res.status(404).json({ erro: "Auditoria não encontrada" });
-      await item.update(req.body);
-      res.json(item);
-    } catch (err) {
-      res.status(500).json({ erro: "Erro ao atualizar auditoria" });
-    }
-  },
-
-  async delete(req, res) {
-    try {
-      const item = await Auditoria.findByPk(req.params.id);
-      if (!item)
-        return res.status(404).json({ erro: "Auditoria não encontrada" });
-      await item.destroy();
-      res.json({ mensagem: "Auditoria excluída com sucesso" });
-    } catch (err) {
-      res.status(500).json({ erro: "Erro ao excluir auditoria" });
+      res.json(auditorias);
+    } catch (error) {
+      res.status(500).json({ message: "Erro ao buscar auditorias", error });
     }
   },
 };

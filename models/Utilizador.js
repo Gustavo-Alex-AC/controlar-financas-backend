@@ -14,10 +14,10 @@ const Utilizador = sequelize.define("Utilizador", {
     allowNull: false,
   },
   senhaUtilizador: DataTypes.STRING,
-  nivelAcesso: {
-    type: DataTypes.STRING,
-    defaultValue: "utilizador",
-  },
+  // nivelAcesso: {
+  //   type: DataTypes.STRING,
+  //   defaultValue: "utilizador",
+  // },
 });
 
 export default Utilizador;

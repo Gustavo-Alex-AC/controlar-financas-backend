@@ -1,21 +1,21 @@
 import express from "express";
 import OrcamentoController from "../controllers/orcamentoController.js";
-
+import autenticarToken from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 // Criar novo orçamento
-router.post("/", OrcamentoController.create);
+router.post("/", autenticarToken, OrcamentoController.create);
 
 // Listar todos os orçamentos
-router.get("/", OrcamentoController.findAll);
+router.get("/", autenticarToken, OrcamentoController.findAll);
 
 // Obter um orçamento pelo ID
-router.get("/:id", OrcamentoController.findById);
+router.get("/:id", autenticarToken, OrcamentoController.findById);
 
 // Atualizar um orçamento pelo ID
-router.put("/:id", OrcamentoController.update);
+router.put("/:id", autenticarToken, OrcamentoController.update);
 
 // Excluir um orçamento pelo ID
-router.delete("/:id", OrcamentoController.delete);
+router.delete("/:id", autenticarToken, OrcamentoController.delete);
 
 export default router;

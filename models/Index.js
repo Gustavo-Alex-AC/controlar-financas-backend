@@ -3,7 +3,7 @@ import sequelize from "../config/database.js";
 import Utilizador from "./Utilizador.js";
 import Orcamento from "./Orcamento.js";
 import Categoria from "./Categoria.js";
-import TransacaoFinanceira from "./TransaccaoFinanceira.js";
+import TransacaoFinanceira from "./TransacaoFinanceira.js";
 import Auditoria from "./Auditoria.js";
 
 // Associações

@@ -7,17 +7,21 @@ import "./models/index.js";
 // importação das rotas
 import userRoutes from "./routes/utilizadorRoutes.js";
 import categoriaRoutes from "./routes/categoriaRoutes.js";
-import transacaoRoutes from "./routes/transaccaoRoutes.js"; 
+import transacaoRoutes from "./routes/transaccaoRoutes.js";
 import orcamentoRoutes from "./routes/orcamentoRoutes.js";
 import auditoriaRoutes from "./routes/auditoriaRoutes.js";
-
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // React frontend URL
+    credentials: true, // If you're sending cookies or authentication headers
+  })
+);
 app.use(express.json());
 
 // Rotas

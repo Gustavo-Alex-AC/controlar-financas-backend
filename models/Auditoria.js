@@ -7,7 +7,22 @@ const Auditoria = sequelize.define("Auditoria", {
     primaryKey: true,
     autoIncrement: true,
   },
-  acao: DataTypes.STRING,
+  idUtilizador: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  acao: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  tabela: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  dados: {
+    type: DataTypes.JSON,
+    allowNull: false,
+  },
   dataHora: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
