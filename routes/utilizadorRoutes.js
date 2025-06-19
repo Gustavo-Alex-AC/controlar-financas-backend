@@ -4,11 +4,11 @@ import autenticarToken from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Public routes
+// Rotas públicas
 router.post("/signup", UserController.create); // Sign up
 router.post("/login", UserController.login); // Login
 
-// Protected routes
+// Routas protegidas
 router.get("/", autenticarToken, UserController.findAll);
 router.get("/:id", autenticarToken, UserController.findById);
 router.put("/:id", autenticarToken, UserController.update);

@@ -1,13 +1,7 @@
 import { Auditoria } from "../models/index.js";
 
 const AuditoriaController = {
-  // async findAll(req, res) {
-  //   const auditorias = await Auditoria.findAll({
-  //     where: { userId: req.user.id },
-  //   });
-  //   res.json(auditorias);
-  // },
-
+  // Buscar todas as auditorias do usuário autenticado
   async findAll(req, res) {
     try {
       if (!req.user) {

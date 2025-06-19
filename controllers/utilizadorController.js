@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const UtilizadorController = {
-  // ✅ Register User
+  // Criação de Utilizador
   async create(req, res) {
     try {
       const { nome, email, senha } = req.body;
@@ -24,7 +24,7 @@ const UtilizadorController = {
     }
   },
 
-  // ✅ Login User
+  // Login Utilizador
   async login(req, res) {
     const { email, senha } = req.body;
 
